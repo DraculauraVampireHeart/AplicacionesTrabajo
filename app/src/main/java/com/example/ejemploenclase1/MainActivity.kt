@@ -4,18 +4,24 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ejemploenclase1.ui.theme.EjemploEnClase1Theme
@@ -34,6 +40,7 @@ class MainActivity : ComponentActivity() {
                 Text(text = "Simple text")
                 ModifierExample()
                 ModifierExample2()
+                ModifierExample3()
             }
            //layouts
            /** Column {
@@ -100,4 +107,27 @@ fun ModifierExample2(){
 
 fun clickAction(){
     println("Column Clicked")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ModifierExample3(){
+    Column (
+        modifier = Modifier
+
+            .fillMaxHeight()
+            .padding(16.dp)
+            .background(Color.Magenta)
+            .border(width = 2.dp, color = Color.Blue)
+            .width(200.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement =  Arrangement.SpaceEvenly
+    ){
+        Text(text = "Item 1")
+        Text(text = "Item 2")
+        Text(text = "Item 3")
+        Text(text = "Item 4")
+        Text(text = "Item 5")
+    }
+
 }
