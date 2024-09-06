@@ -1,9 +1,11 @@
 package com.example.ejemploenclase1
 
+import android.graphics.Picture
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,9 +23,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.Cyan
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.ejemploenclase1.ui.theme.EjemploEnClase1Theme
 
 class MainActivity : ComponentActivity() {
@@ -130,4 +143,42 @@ fun ModifierExample3(){
         Text(text = "Item 5")
     }
 
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CustomText(){
+    Column {
+        Text(
+            stringResource(R.string.Hello_World_Text),
+            color = colorResource(R.color.Pink),
+            fontSize = 20.sp,
+            fontStyle = FontStyle.Italic,
+            fontWeight = FontWeight.ExtraBold
+        )
+        val gradientColors = listOf(Cyan, Blue)
+        Text(
+            stringResource(R.string.Hello_World_Text),
+            style = TextStyle(brush = Brush.linearGradient(colors = gradientColors))
+
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun Picture(){
+    Column (
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Black)
+    ){
+        Image(
+            modifier = Modifier
+                .fillMaxWidth(),
+            painter = painterResource(R.drawable.j0b8jkwfohdd1),
+            contentDescription = "Logo BLACKPINK",
+            contentScale = ContentScale.FillWidth
+        )
+    }
 }
