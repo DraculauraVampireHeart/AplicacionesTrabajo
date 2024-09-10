@@ -18,10 +18,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -66,6 +70,7 @@ class MainActivity : ComponentActivity() {
                 CustomText()
                 Picture1()
                 Content1()
+                Content2()
 
             }
            //layouts
@@ -227,6 +232,107 @@ fun Content1(){
             modifier = Modifier
                 .padding(10.dp)
         )
+    }
+}
+
+@Preview (showBackground = true)
+@Composable
+fun Content2(){
+    Card(
+        modifier = Modifier
+            .background(Color.LightGray)
+            .fillMaxWidth()
+            .padding(5.dp)
+    ) {
+        Row (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp)
+
+        ){
+            Image(
+                modifier = Modifier
+                    .width(100.dp)
+                    .height(100.dp),
+                painter = painterResource(id = R.drawable.blackpink),
+                contentDescription = "Blackpink logo, espero funcione",
+                contentScale = ContentScale.Crop
+            )
+
+            Column (
+                modifier = Modifier
+                    .fillMaxWidth()
+            ){
+                Text(
+                    text = "THIS IS A TITLE",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(10.dp)
+                )
+
+                Text(
+                    stringResource(R.string.Style),
+                    textAlign = TextAlign.Center,
+                    lineHeight = 18.sp,
+                    modifier = Modifier
+                        .padding(10.dp)
+                )
+
+            }
+
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BoxExample1(){
+    Box(
+        modifier = Modifier
+            .background(Color.Magenta)
+            .fillMaxWidth()
+            .padding(5.dp)
+    ){
+        Image(painterResource(R.drawable.j0b8jkwfohdd1),
+            contentDescription = "navia",
+            contentScale = ContentScale.FillBounds
+            )
+        Row (
+            modifier = Modifier
+                //.background(Color.Blue)
+                .padding(0.dp, 150.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+
+        ){
+            Icon(
+                Icons.Filled.FavoriteBorder,
+                contentDescription = "icono"
+            )
+            Text(text = "Text")
+        }
+
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BoxExample2(){
+    Box(
+        modifier = Modifier
+            .background(Color.Magenta)
+            .padding(5.dp)
+            .size(250.dp)
+    ){
+        Text(text = "TopStart", modifier = Modifier.align(Alignment.TopStart))
+        Text(text = "TopEnd", modifier = Modifier.align(Alignment.TopEnd))
+        Text(text = "BottomStart", modifier = Modifier.align(Alignment.BottomStart))
+        Text(text = "BottomEnd", modifier = Modifier.align(Alignment.BottomEnd))
+        Text(text = "CenterStart", modifier = Modifier.align(Alignment.CenterStart))
+        Text(text = "Center", modifier = Modifier.align(Alignment.Center))
+        Text(text = "CenterEnd", modifier = Modifier.align(Alignment.CenterEnd))
+
     }
 }
 
