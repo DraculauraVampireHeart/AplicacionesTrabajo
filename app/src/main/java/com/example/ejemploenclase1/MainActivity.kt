@@ -36,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.Cyan
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -46,15 +47,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.ejemploenclase1.ui.theme.EjemploEnClase1Theme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compoe.rememberNavController //
+import androidx.navigation.compose.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.ejemploenclase1.ui.screens.HomeScreen
+import com.example.ejemploenclase1.ui.screens.MenuScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         setContent {
-            
-            Column(
+
+        }
+           Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState()),
@@ -88,7 +97,7 @@ class MainActivity : ComponentActivity() {
                 }
                 Greeting(name = "BLACKPINK in your area")
             }**/
-            
+
         }
     }
 }
@@ -110,7 +119,7 @@ fun GreetingPreview() {
 }
 
 @Preview(showBackground = true)
-@Composable 
+@Composable
 fun ModifierExample(){
     Column (
         modifier = Modifier
@@ -119,7 +128,7 @@ fun ModifierExample(){
     ){
         Text(text = "Hello World")
     }
-    
+
 }
 
 @Preview(showBackground = true)
@@ -335,4 +344,25 @@ fun BoxExample2(){
 
     }
 }
+
+@Composable
+fun ComposeMultiScreenApp(){
+    val navController = rememberNavController()
+    surface(color = Color.White){
+        SetupNavGraph(navController = navController)
+    }
+
+}
+
+@Composable
+fun SetupNavGraph(navController: NavHostController){
+    NavHost(navController = navController, startDestination = "menu"){
+        composable("menu"){ MenuScreen(navController)}
+        composable("home"){ HomeScreen(navController)}
+
+    }
+}
+
+
+
 
