@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
             ComposeMultiScreenApp()
 
 
-           Column(
+          /* Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState()),
@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
                 Content1()
                 Content2()
 
-            }
+            }*/
            //layouts
            /** Column {
                 Text(text = "First Row")
@@ -101,7 +101,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
+/*@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
@@ -342,7 +342,7 @@ fun BoxExample2(){
         Text(text = "CenterEnd", modifier = Modifier.align(Alignment.CenterEnd))
 
     }
-}
+}*/
 
 @Composable
 fun ComposeMultiScreenApp(){
