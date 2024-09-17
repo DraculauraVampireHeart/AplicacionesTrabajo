@@ -1,10 +1,8 @@
 package com.example.ejemploenclase1
 
-import android.graphics.Picture
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,7 +24,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,15 +44,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.ejemploenclase1.ui.screens.HomeScreen
+import com.example.ejemploenclase1.ui.screens.MenuScreen
 import com.example.ejemploenclase1.ui.theme.EjemploEnClase1Theme
+import com.example.ejemploenclase1.ui.screens.MenuScreen
+import com.example.ejemploenclase1.ui.screens.HomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         setContent {
-            
-            Column(
+            ComposeMultiScreenApp()
+
+
+          /* Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState()),
@@ -72,7 +80,7 @@ class MainActivity : ComponentActivity() {
                 Content1()
                 Content2()
 
-            }
+            }*/
            //layouts
            /** Column {
                 Text(text = "First Row")
@@ -88,12 +96,12 @@ class MainActivity : ComponentActivity() {
                 }
                 Greeting(name = "BLACKPINK in your area")
             }**/
-            
+
         }
     }
 }
 
-@Composable
+/*@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
@@ -110,7 +118,7 @@ fun GreetingPreview() {
 }
 
 @Preview(showBackground = true)
-@Composable 
+@Composable
 fun ModifierExample(){
     Column (
         modifier = Modifier
@@ -119,7 +127,7 @@ fun ModifierExample(){
     ){
         Text(text = "Hello World")
     }
-    
+
 }
 
 @Preview(showBackground = true)
@@ -334,5 +342,26 @@ fun BoxExample2(){
         Text(text = "CenterEnd", modifier = Modifier.align(Alignment.CenterEnd))
 
     }
+}*/
+
+@Composable
+fun ComposeMultiScreenApp(){
+    val navController = rememberNavController()
+    Surface(color = Color.White){
+        SetupNavGraph(navController = navController)
+    }
+
 }
+
+@Composable
+fun SetupNavGraph(navController: NavHostController){
+    NavHost(navController = navController, startDestination = "menu"){
+        composable("menu"){ MenuScreen(navController)}
+        composable("home"){ HomeScreen(navController)}
+
+    }
+}
+
+
+
 
