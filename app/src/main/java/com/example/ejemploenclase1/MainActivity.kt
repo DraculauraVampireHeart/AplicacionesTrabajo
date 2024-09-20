@@ -444,7 +444,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(Color.White), // Cambia el color de fondo si es necesario
+            .background(Color(0xFFfafafa)), // Cambia el color de fondo si es necesario
         contentAlignment = Alignment.Center
     ) {
         Row(
@@ -488,7 +488,7 @@ fun BottomNavigationBar(modifier: Modifier = Modifier) {
                     painter = painterResource(id = R.drawable.profile1),
                     contentDescription = "Profile",
                     modifier = Modifier
-                        .size(24.dp)
+                        .size(28.dp)
                         .clip(CircleShape) // Imagen circular para el icono de perfil
                 )
             }
