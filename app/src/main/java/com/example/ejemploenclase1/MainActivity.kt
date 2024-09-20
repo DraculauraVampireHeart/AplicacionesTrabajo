@@ -53,53 +53,451 @@ import com.example.ejemploenclase1.ui.screens.MenuScreen
 import com.example.ejemploenclase1.ui.theme.EjemploEnClase1Theme
 import com.example.ejemploenclase1.ui.screens.MenuScreen
 import com.example.ejemploenclase1.ui.screens.HomeScreen
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.ui.draw.clip
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Icon
+
+// Define los colores para el borde degradado
+val GradientColors = Brush.linearGradient(
+    colors = listOf(Color.Red, Color.Yellow, Color.Blue)
+)
+
+// Datos de ejemplo para las historias
+data class Story(val imageResId: Int, val userName: String)
+
+val sampleStories = listOf(
+    Story(R.drawable.profile1, "Your story"),
+    Story(R.drawable.profile2, "gvanille"),
+    Story(R.drawable.profile3, "pledis_boos"),
+    Story(R.drawable.profile4, "edvinrydings"),
+    Story(R.drawable.profile5, "nayeonyny"),
+    Story(R.drawable.profile6, "sharon_s11"),
+    Story(R.drawable.profile7, "kassuwu")
+
+
+
+)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
         setContent {
-            ComposeMultiScreenApp()
 
-
-          /* Column(
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
-            ){
+            ) {
+                Column (
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState()) // Habilitar el desplazamiento vertical
+                ) {
+                    InstagramTopBar()
 
-                Text(text = "Simple text")
-                ModifierExample()
-                ModifierExample2()
-                ModifierExample3()
+                    // Lista de historias debajo de la barra superior
+                    StoriesList(stories = sampleStories)
 
-                CustomText()
-                Picture1()
-                Content1()
-                Content2()
+                    InstagramPost(
+                        profileImage = painterResource(id = R.drawable.zb1pfp),
+                        userName = "zb1official",
+                        songTitle = "♫ ZEROBASEONE • The Sea (ZB1 Remake)",
+                        postImage = painterResource(id = R.drawable.post_image),
+                        likes = "354K",
+                        comments = "3,092",
+                        shares = "15.1K",
+                        description = "제로즈 보고싶어어엉",
+                        timePosted = "September 11"
+                    )
 
-            }*/
-           //layouts
-           /** Column {
-                Text(text = "First Row")
-                Text(text = "Second Row")
-                Text(text = "Third Row")
-                Row{
-                    Text(text = "BLACKPINK")
-                    Text(text = "ROW 2")
+                    InstagramPost(
+                        profileImage = painterResource(id = R.drawable.catpfp),
+                        userName = "sansanmaoer",
+                        songTitle = "Suggested for you",
+                        postImage = painterResource(id = R.drawable.post_image2),
+                        likes = "92.2K",
+                        comments = "266",
+                        shares = "11.6K",
+                        description = "only one ear\uD83D\uDC42",
+                        timePosted = "1 day ago"
+                    )
+
+                    InstagramPost(
+                        profileImage = painterResource(id = R.drawable.jeonpfp),
+                        userName = "jeonghaniyoo_n",
+                        songTitle = "♫ SEVENTEEN • Headliner",
+                        postImage = painterResource(id = R.drawable.post_image4),
+                        likes = "1.7M",
+                        comments = "34.3K",
+                        shares = "63.9K",
+                        description = "lollapalooza berlin\uD83D\uDC98",
+                        timePosted = "September 10"
+                    )
+
+                    InstagramPost(
+                        profileImage = painterResource(id = R.drawable.lisapfp),
+                        userName = "lalalalisa_m",
+                        songTitle = "♫ LISA • ROCKSTAR",
+                        postImage = painterResource(id = R.drawable.post_image3),
+                        likes = "4.7M",
+                        comments = "29.2K",
+                        shares = "58.9K",
+                        description = "Thank you mtv and vmas for this award.",
+                        timePosted = "6 days ago"
+
+                    )
+
+
                 }
-                Box{
-                    Text(text = "Label 1")
-                    Text(text = "Label 2")
-                }
-                Greeting(name = "BLACKPINK in your area")
-            }**/
+                // Barra de navegación inferior, siempre visible en la parte inferior
+                BottomNavigationBar(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter) // Fija la barra en la parte inferior
+                )
+            }
 
+        }
+
+        // Configurar el color de la barra de estado y la barra de navegación
+        WindowCompat.getInsetsController(window, window.decorView).let { controller ->
+            controller.isAppearanceLightStatusBars = true
+            controller.isAppearanceLightNavigationBars = true
+        }
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white) // Cambia R.color.white por el color deseado
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.white) // Cambia R.color.white por el color deseado
+
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun InstagramTopBar() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .statusBarsPadding()
+            .padding(horizontal = 16.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        // Imagen del logo de Instagram a la izquierda
+        Image(
+            painter = painterResource(id = R.drawable.instagram_logo), // Reemplaza con el nombre de tu imagen en drawable
+            contentDescription = "Logo de Instagram",
+            modifier = Modifier
+                .height(75.dp) // Ajusta el tamaño según prefieras
+                .width(120.dp)
+
+        )
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            // Icono de notificaciones (solo visual)
+            Icon(
+                painter = painterResource(id = R.drawable.ic_notifications),
+                contentDescription = "Notificaciones",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(25.dp)
+                    //.padding(horizontal = 16.dp)
+            )
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            // Icono de mensajes (solo visual)
+            Icon(
+                painter = painterResource(id = R.drawable.ic_messages),
+                contentDescription = "Mensajes",
+                tint = Color.Black,
+                modifier = Modifier
+                    .size(23.dp)
+
+            )
         }
     }
 }
+
+@Composable
+fun StoryItem(image: Painter, userName: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(horizontal = 8.dp)
+            //.padding(vertical = 60.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(82.dp) // Tamaño del círculo
+                .border(
+                    width = 3.dp,
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color.Yellow,
+                            Color.Magenta)
+                    ),
+                    shape = CircleShape
+                )
+                .background(Color.White, shape = CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = image,
+                contentDescription = "Story Image",
+                modifier = Modifier
+                    .size(69.dp) // Tamaño de la imagen dentro del círculo
+                    .clip(CircleShape), // Asegúrate de que la imagen se recorte a forma circular
+
+
+
+
+            )
+        }
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = userName,
+            fontSize = 12.sp,
+            maxLines = 1
+        )
+    }
+}
+
+@Composable
+fun StoriesList(stories: List<Story>) {
+    LazyRow(
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        items(stories) { story ->
+            StoryItem(
+                image = painterResource(id = story.imageResId),
+                userName = story.userName
+            )
+        }
+    }
+}
+
+@Composable
+fun InstagramPost(
+    profileImage: Painter,
+    userName: String,
+    songTitle: String,
+    postImage: Painter,
+    likes: String,
+    comments: String,
+    shares: String,
+    description: String,
+    timePosted: String
+) {
+    Column(modifier = Modifier.fillMaxWidth()
+        //.padding(vertical = 60.dp)
+
+    ) {
+        // Encabezado de la publicación
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp)
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Foto de perfil
+            Image(
+                painter = profileImage,
+                contentDescription = "Profile Image",
+                modifier = Modifier
+                    .size(32.dp)
+                    .clip(CircleShape)
+                    .background(Color.Gray) // Color de fondo opcional
+            )
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            // Nombre de usuario y canción
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = userName,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp
+                )
+                Text(
+                    text = songTitle,
+                    fontSize = 12.sp,
+                   // color = Color.Gray
+                )
+            }
+
+            // Ícono de 3 puntos (ajustes)
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = "More options",
+                modifier = Modifier.size(24.dp)
+            )
+        }
+
+        // Imagen de la publicación (llena toda la pantalla en ancho y alto)
+        Image(
+            painter = postImage,
+            contentDescription = "Post Image",
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(), // Modifica esta proporción según lo que necesites
+            contentScale = ContentScale.Crop
+        )
+
+        // Sección de acciones (likes, comentarios, compartir, guardar)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconWithText(icon = painterResource(id = R.drawable.ic_like), text = "$likes")
+                Spacer(modifier = Modifier.width(16.dp))
+                IconWithText(icon = painterResource(id = R.drawable.ic_comment), text = "$comments")
+                Spacer(modifier = Modifier.width(16.dp))
+                IconWithText(icon = painterResource(id = R.drawable.ic_share), text = "$shares")
+            }
+
+            Icon(
+                painter = painterResource(id = R.drawable.ic_save),
+                contentDescription = "Save",
+                modifier = Modifier.size(24.dp)
+            )
+        }
+
+        // Nombre de usuario y descripción
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp)
+        ) {
+            Text(
+                text = userName,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = description,
+                fontSize = 14.sp
+            )
+        }
+
+        // Texto "View all comments"
+        Text(
+            text = "View all comments",
+            color = Color.Gray,
+            fontSize = 14.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp)
+        )
+
+        // Texto "7 hours ago"
+        Text(
+            text = timePosted,
+            color = Color.Gray,
+            fontSize = 12.sp,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 2.dp)
+        )
+    }
+}
+
+@Composable
+fun IconWithText(icon: Painter, text: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Icon(
+            painter = icon,
+            contentDescription = null,
+            modifier = Modifier.size(24.dp)
+        )
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(text = text,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+fun BottomNavigationBar(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .background(Color.White), // Cambia el color de fondo si es necesario
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Iconos de la barra de navegación inferior
+            IconButton(onClick = { /* Acción de inicio */ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_inicio),
+                    contentDescription = "Home",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            IconButton(onClick = { /* Acción de buscar */ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_explorar),
+                    contentDescription = "Search",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            IconButton(onClick = { /* Acción de nuevo */ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_nuevo),
+                    contentDescription = "New Post",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            IconButton(onClick = { /* Acción de reels */ }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_reels),
+                    contentDescription = "Reels",
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            IconButton(onClick = { /* Acción de perfil */ }) {
+                Image(
+                    painter = painterResource(id = R.drawable.profile1),
+                    contentDescription = "Profile",
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clip(CircleShape) // Imagen circular para el icono de perfil
+                )
+            }
+        }
+    }
+}
+
+
+
 
 /*@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -344,7 +742,7 @@ fun BoxExample2(){
     }
 }*/
 
-@Composable
+/*@Composable
 fun ComposeMultiScreenApp(){
     val navController = rememberNavController()
     Surface(color = Color.White){
@@ -360,7 +758,7 @@ fun SetupNavGraph(navController: NavHostController){
         composable("home"){ HomeScreen(navController)}
 
     }
-}
+}*/
 
 
 
