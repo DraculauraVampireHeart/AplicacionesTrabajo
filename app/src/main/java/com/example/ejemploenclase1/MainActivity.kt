@@ -89,7 +89,7 @@ val sampleStories = listOf(
     Story(R.drawable.profile4, "edvinrydings"),
     Story(R.drawable.profile5, "nayeonyny"),
     Story(R.drawable.profile6, "sharon_s11"),
-    //Story(R.drawable.profile7, "kassuwu")
+    Story(R.drawable.profile7, "kassuwu")
 
 
 
