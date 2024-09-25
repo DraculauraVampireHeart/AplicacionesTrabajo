@@ -100,7 +100,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            Box(
+           /* Box(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
@@ -177,7 +177,7 @@ class MainActivity : ComponentActivity() {
         // Configurar el color de la barra de estado y la barra de navegación
         WindowCompat.getInsetsController(window, window.decorView).let { controller ->
             controller.isAppearanceLightStatusBars = true
-            controller.isAppearanceLightNavigationBars = true
+            controller.isAppearanceLightNavigationBars = true*/
         }
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.white) // Cambia R.color.white por el color deseado
