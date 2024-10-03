@@ -3,6 +3,7 @@ package com.example.ejemploenclase1
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -98,7 +99,9 @@ val sampleStories = listOf(
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
+            ComposeMultiScreenApp()
 
 
            /* Box(
@@ -743,7 +746,7 @@ fun BoxExample2(){
     }
 }*/
 
-/*@Composable
+@Composable
 fun ComposeMultiScreenApp(){
     val navController = rememberNavController()
     Surface(color = Color.White){
@@ -759,7 +762,7 @@ fun SetupNavGraph(navController: NavHostController){
         composable("home"){ HomeScreen(navController)}
 
     }
-}*/
+}
 
 
 
