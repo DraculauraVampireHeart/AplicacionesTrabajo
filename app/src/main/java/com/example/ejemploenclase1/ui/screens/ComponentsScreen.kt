@@ -73,6 +73,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -86,6 +87,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.navigation.NavController
+import com.example.ejemploenclase1.data.model.MenuModel
 import com.example.ejemploenclase1.data.model.PostModel
 import kotlinx.coroutines.launch
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
@@ -97,14 +99,19 @@ import java.util.Locale
 
 @Composable
 fun ComponentScreen(navController: NavController) {
-    var component by remember { mutableStateOf("") }
+    val menuoption = arrayOf(
+        MenuModel(1, "Buttons", "button", Icons.Filled.AccountCircle),
+        MenuModel(2, "Floating Buttons", "floating-buttons", Icons.Filled.AccountCircle),
+    )
+    var component by rememberSaveable { mutableStateOf("") }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     ModalNavigationDrawer(
         drawerState = drawerState, //current state of drawer
         //content of drawer
         drawerContent = { // diseño del menu
-            ModalDrawerSheet {
+            //ModalDrawerSheet {
+                /*
                 //Content 1
                 NavigationDrawerItem(
                     label = { Text(text = "Content 1") },
@@ -378,11 +385,12 @@ fun ComponentScreen(navController: NavController) {
                 "Bars" ->
                     Bars()
             }
-            InputChipExample("Dismiss", {})
+            InputChipExample("Dismiss", {})*/
 
-        }
+            //}
     }
 }
+
 
 
 
