@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Check
@@ -23,6 +26,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -82,6 +86,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.navigation.NavController
+import com.example.ejemploenclase1.data.model.PostModel
 import kotlinx.coroutines.launch
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import java.text.SimpleDateFormat
@@ -91,8 +96,8 @@ import java.util.Locale
 
 
 @Composable
-fun ComponentScreen(navController: NavController){
-    var component by remember { mutableStateOf("")}
+fun ComponentScreen(navController: NavController) {
+    var component by remember { mutableStateOf("") }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     ModalNavigationDrawer(
@@ -100,10 +105,9 @@ fun ComponentScreen(navController: NavController){
         //content of drawer
         drawerContent = { // diseño del menu
             ModalDrawerSheet {
-                Text(text = "Menu", modifier = Modifier.padding(16.dp))
-                HorizontalDivider()
+                //Content 1
                 NavigationDrawerItem(
-                    label = { Text(text = "Contenido 1") },
+                    label = { Text(text = "Content 1") },
                     selected = false,
                     onClick = {
                         component = "Content1"
@@ -114,8 +118,10 @@ fun ComponentScreen(navController: NavController){
                         }
                     }
                 )
+                //Content 2
+                HorizontalDivider()
                 NavigationDrawerItem(
-                    label = { Text(text = "Contenido 2") },
+                    label = { Text(text = "Content 2") },
                     selected = false,
                     onClick = {
                         component = "Content2"
@@ -126,25 +132,257 @@ fun ComponentScreen(navController: NavController){
                         }
                     }
                 )
+                //Content 3
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Button") },
+                    selected = false,
+                    onClick = {
+                        component = "Button"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 4
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "FloatingButtons") },
+                    selected = false,
+                    onClick = {
+                        component = "FloatingButtons"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 5
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Chips") },
+                    selected = false,
+                    onClick = {
+                        component = "Chips"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 6
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "InputExample") },
+                    selected = false,
+                    onClick = {
+                        component = "InputExample"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 7
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Progress") },
+                    selected = false,
+                    onClick = {
+                        component = "Progress"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 8
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Sliders") },
+                    selected = false,
+                    onClick = {
+                        component = "Sliders"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 9
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Switches") },
+                    selected = false,
+                    onClick = {
+                        component = "Switches"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 10
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Badges") },
+                    selected = false,
+                    onClick = {
+                        component = "Badges"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 11
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "TimePickers") },
+                    selected = false,
+                    onClick = {
+                        component = "TimePickers"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 12
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "DatePickers") },
+                    selected = false,
+                    onClick = {
+                        component = "DatePickers"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 13
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "SnackBars") },
+                    selected = false,
+                    onClick = {
+                        component = "SnackBars"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 14
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "AlertDialogs") },
+                    selected = false,
+                    onClick = {
+                        component = "AlertDialogs"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 15
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Bars") },
+                    selected = false,
+                    onClick = {
+                        component = "Bars"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                //Content 16
+                HorizontalDivider()
+                NavigationDrawerItem(
+                    label = { Text(text = "Posts") },
+                    selected = false,
+                    onClick = {
+                        component = "Posts"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
 
             }
-        }
-    ) {
-        //Screen Content
+        }) {
         Column {
-            when(component){
-                "Content1" -> {
+            when (component) {
+                "Content1" ->
                     Content1()
-                }
-                "Content2" -> {
+
+                "Content2" ->
                     Content2()
-                }
+
+                "Button" ->
+                    Buttons()
+
+                "FloatingButtons" ->
+                    FloatingButtons()
+
+                "Chips" ->
+                    Chips()
+
+                "InputExample" ->
+                    InputChipExample("Dimiss", {})
+
+                "Progress" ->
+                    Progress()
+
+                "Sliders" ->
+                    Sliders()
+
+                "Switches" ->
+                    Switches()
+
+                "Badges" ->
+                    Badges()
+
+                "TimePickers" ->
+                    TimePickers()
+
+                "DatePickers" ->
+                    DatePickers()
+
+                "SnackBars" ->
+                    SnackBars()
+
+                "AlertDialogs" ->
+                    AlertDialogs()
+
+                "Bars" ->
+                    Bars()
             }
-        }
-        InputChipExample("Dismiss", {})
+            InputChipExample("Dismiss", {})
 
         }
     }
+}
 
 
 
@@ -475,33 +713,25 @@ fun convertMillisToDate(millis: Long): String {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TimePickers(
-    onConfirm: (TimePickerState) -> Unit,
-    onDismiss: () -> Unit,
-) {
+){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly,
         modifier = Modifier
             .fillMaxSize()
-    ){
-        val currentTime = Calendar.getInstance()
+    ) {
+        val currenTime = Calendar.getInstance()
 
         val timePickerState = rememberTimePickerState(
-            initialHour = currentTime.get(Calendar.HOUR_OF_DAY),
-            initialMinute = currentTime.get(Calendar.MINUTE),
-            is24Hour = true,
+            initialHour = currenTime.get(Calendar.HOUR_OF_DAY),
+            initialMinute = currenTime.get(Calendar.MINUTE),
+            is24Hour = true
         )
 
-        TimePickerDialog(
-            onDismiss = { onDismiss() },
-            onConfirm = { onConfirm(timePickerState) }
-        ) {
-            TimePicker(
-                state = timePickerState,
-            )
+        Column {
+            TimePicker(state = timePickerState)
         }
     }
-
 }
 
 @Composable
@@ -605,32 +835,153 @@ fun AlertDialogs() {
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun Bars(){
-    Box (modifier = Modifier
-        .fillMaxSize()
-        .background(Color.DarkGray)
-    ){
-        Row (modifier = Modifier
-            .align(Alignment.TopCenter)
-            .fillMaxWidth()
-            .background(Color.Black)
-            .padding(10.dp, 50.dp, 10.dp, 10.dp),
+fun Bars() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.DarkGray)
+    ) {
+        Row(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .fillMaxWidth()
+                .background(Color.Black)
+                .padding(10.dp, 50.dp, 10.dp, 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween
-        ){
-            Icon(Icons.Filled.Menu, contentDescription = "", tint = Color.White )
+        ) {
+            Icon(
+                Icons.Filled.Menu,
+                contentDescription = "",
+                tint = Color.White
+            )
             Text(
                 text = "App Title",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
-            Icon(Icons.Filled.Settings, contentDescription = "", tint = Color.White )
-
+            Icon(
+                Icons.Filled.Settings,
+                contentDescription = "",
+                tint = Color.White
+            )
         }
 
+        var post = arrayOf(
+            PostModel(1, "Title 1", "Text1"),
+            PostModel(2, "Title 2", "Text2"),
+            PostModel(3, "Title 3", "Text3"),
+            PostModel(4, "Title 4", "Text4")
+        )
+
+        Column(
+            modifier = Modifier
+                .padding(10.dp, 90.dp, 10.dp, 50.dp)
+                .fillMaxSize()
+        ){
+            Posts(post)
+        }
+
+
+        Row(
+            modifier = Modifier
+                //alinier al top center falta **
+                .fillMaxWidth()
+                .height(65.dp)
+                .background(Color.Black)
+                .padding(2.dp, 5.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Column {
+                IconButton(
+                    onClick = {}, modifier = Modifier
+                        .size(30.dp)
+                ) {
+                    Icon(
+                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+
+                }
+                Text(text = "Home", color = Color.White)
+            }
+            Column {
+                IconButton(
+                    onClick = {}, modifier = Modifier
+                        .size(30.dp)
+                ) {
+                    Icon(
+                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+
+                }
+                Text(text = "Alerts", color = Color.White)
+            }
+            Column {
+                IconButton(
+                    onClick = {}, modifier = Modifier
+                        .size(30.dp)
+                ) {
+                    Icon(
+                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+
+                }
+                Text(text = "XD", color = Color.White)
+            }
+            Column {
+                IconButton(
+                    onClick = {}, modifier = Modifier
+                        .size(30.dp)
+                ) {
+                    Icon(
+                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+
+                }
+                Text(text = "other", color = Color.White)
+            }
+            Column {
+                IconButton(
+                    onClick = {}, modifier = Modifier
+                        .size(30.dp)
+                ) {
+                    Icon(
+                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+
+                }
+                Text(text = "Other", color = Color.White)
+            }
+        }
     }
 }
 
+@Composable
+fun Posts(arrayPosts : Array<PostModel>) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        items(arrayPosts) { post ->
+            Text(
+                text = post.title,
+                color = Color.White,
+                fontSize = 16.sp
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            HorizontalDivider(thickness = 2.dp)
+        }
+    }
+}
 
