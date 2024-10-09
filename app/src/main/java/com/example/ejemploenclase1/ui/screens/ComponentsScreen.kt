@@ -21,11 +21,19 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
@@ -69,6 +77,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.TimePickerState
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTimePickerState
@@ -92,6 +101,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.navigation.NavController
+import androidx.window.core.layout.WindowHeightSizeClass
+import androidx.window.core.layout.WindowWidthSizeClass
 import com.example.ejemploenclase1.data.model.MenuModel
 import com.example.ejemploenclase1.data.model.PostModel
 import com.example.ejemploenclase1.ui.components.PostCard
@@ -101,303 +112,309 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import android.R
+import com.example.ejemploenclase1.R
+import com.example.ejemploenclase1.ui.components.PostCardCompact
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ComponentScreen(navController: NavController) {
-    val menuoption = arrayOf(
-        MenuModel(1, "Buttons", "button", Icons.Filled.AccountCircle),
-        MenuModel(2, "Floating Buttons", "floating-buttons", Icons.Filled.AccountCircle),
+fun Components(navController: NavController) {
+    var menuOptions = arrayOf(
+        MenuModel(1,"Content 1","Content1",Icons.Filled.Home),
+        MenuModel(2,"Content 2","Content2",Icons.Filled.FavoriteBorder),
+        MenuModel(3,"Buttons","Buttons",Icons.Filled.AccountBox),
+        MenuModel(4,"Floating Buttons","FloatingButtons",Icons.Filled.CheckCircle),
+        MenuModel(5,"Chips","Chips",Icons.Filled.Check),
+        MenuModel(6,"Progress","Progress",Icons.Filled.Refresh),
+        MenuModel(7,"Sliders","Sliders",Icons.Filled.KeyboardArrowDown),
+        MenuModel(8,"Switches","Switches",Icons.Filled.Warning),
+        MenuModel(9,"Badges","Badges",Icons.Filled.ShoppingCart),
+        MenuModel(10,"TimePickers","TimePickers",Icons.Filled.Notifications),
+        MenuModel(11,"DatePickers","DatePickers",Icons.Filled.DateRange),
+        MenuModel(12,"AlertDialogs","AlertDialogs",Icons.Filled.Warning),
+        MenuModel(13,"SnackBars","SnackBars",Icons.Filled.Settings),
+        MenuModel(14,"Bars","Bars",Icons.Filled.Favorite),
+        MenuModel(15,"Adaptative","Adaptative",Icons.Filled.Menu),
     )
-    var component by rememberSaveable { mutableStateOf("") }
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
-    ModalNavigationDrawer(
-        drawerState = drawerState, //current state of drawer
-        //content of drawer
-        drawerContent = { // diseño del menu
-            //ModalDrawerSheet {
-                /*
-                //Content 1
-                NavigationDrawerItem(
-                    label = { Text(text = "Content 1") },
-                    selected = false,
-                    onClick = {
-                        component = "Content1"
+    // In order to support horizontal page view change, remember Saveable
+    var component by rememberSaveable{ mutableStateOf("") } //Can assign a value
+    // A reactive component to UI COMPONENTS
+    // A global variable that its state can by updated using buttons
+
+    var drawerState = rememberDrawerState(initialValue= DrawerValue.Closed)
+    val scope = rememberCoroutineScope() //Update drawer state, is it closed?
+    ModalNavigationDrawer( //Screen that displays above our content
+        drawerState=drawerState, //Current state of drawer
+        // drawer content
+        drawerContent = { //Content of menu
+            ModalDrawerSheet {
+                Text("Menu",
+                    modifier = Modifier
+                        .padding(16.dp))
+                HorizontalDivider() // Line
+                LazyColumn{
+                    items(menuOptions){
+                            item ->
+                        NavigationDrawerItem(
+                            icon = {Icon(item.icon, contentDescription = null)},
+                            label = { Text(item.title) },
+                            selected = false,
+                            onClick = {
+                                component=item.option
+                                scope.launch {
+                                    drawerState.apply {
+                                        close() // Close drawer or side menu
+                                    }
+                                }
+                            }
+                        )
+                    }
+                }
+                //Show content 1
+                /*NavigationDrawerItem(label = { Text("Content 1") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Content1"
                         scope.launch {
                             drawerState.apply {
-                                close()
+                                close() // Close drawer or side menu
                             }
                         }
                     }
                 )
-                //Content 2
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Content 2") },
-                    selected = false,
-                    onClick = {
-                        component = "Content2"
+                // Show content 2
+                NavigationDrawerItem(label = { Text("Content 2") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Content2"
                         scope.launch {
                             drawerState.apply {
-                                close()
+                                close() // Close drawer or side menu
                             }
                         }
                     }
-                )
-                //Content 3
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Button") },
-                    selected = false,
-                    onClick = {
-                        component = "Button"
+                )*/
+                //Buttons
+                /*NavigationDrawerItem(label = { Text("Buttons") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Buttons"
                         scope.launch {
                             drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 4
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "FloatingButtons") },
-                    selected = false,
-                    onClick = {
-                        component = "FloatingButtons"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 5
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Chips") },
-                    selected = false,
-                    onClick = {
-                        component = "Chips"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 6
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "InputExample") },
-                    selected = false,
-                    onClick = {
-                        component = "InputExample"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 7
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Progress") },
-                    selected = false,
-                    onClick = {
-                        component = "Progress"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 8
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Sliders") },
-                    selected = false,
-                    onClick = {
-                        component = "Sliders"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 9
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Switches") },
-                    selected = false,
-                    onClick = {
-                        component = "Switches"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 10
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Badges") },
-                    selected = false,
-                    onClick = {
-                        component = "Badges"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 11
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "TimePickers") },
-                    selected = false,
-                    onClick = {
-                        component = "TimePickers"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 12
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "DatePickers") },
-                    selected = false,
-                    onClick = {
-                        component = "DatePickers"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 13
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "SnackBars") },
-                    selected = false,
-                    onClick = {
-                        component = "SnackBars"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 14
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "AlertDialogs") },
-                    selected = false,
-                    onClick = {
-                        component = "AlertDialogs"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 15
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Bars") },
-                    selected = false,
-                    onClick = {
-                        component = "Bars"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                //Content 16
-                HorizontalDivider()
-                NavigationDrawerItem(
-                    label = { Text(text = "Posts") },
-                    selected = false,
-                    onClick = {
-                        component = "Posts"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
+                                close() // Close drawer or side menu
                             }
                         }
                     }
                 )
 
+                //Floating
+                NavigationDrawerItem(label = { Text("Floating Buttons") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Floating"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+
+                // Chips
+                NavigationDrawerItem(label = { Text("Chips") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Chips"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+
+
+                //Progress()
+                NavigationDrawerItem(label = { Text("Progress") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Progress"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+                //Sliders()
+                NavigationDrawerItem(label = { Text("Sliders") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Sliders"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+                //Switches()
+                NavigationDrawerItem(label = { Text("Switches") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Switches"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+
+                //Badges
+                NavigationDrawerItem(label = { Text("Badges") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Badges"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+
+
+                //TimePickers
+                NavigationDrawerItem(label = { Text("TimePickers") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="TimePickers"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+
+                //DatePickers
+                NavigationDrawerItem(label = { Text("DatePickers") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="DatePickers"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+
+                //AlertDialogs
+                NavigationDrawerItem(label = { Text("AlertDialogs") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="AlertDialogs"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+
+                //SnackBars
+                NavigationDrawerItem(label = { Text("SnackBars") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="SnackBars"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )
+
+                //Bars
+                NavigationDrawerItem(label = { Text("Bars") }, //TITLE OF BUTTON //fist item
+                    selected = false //is selected?
+                    , onClick = {
+                        component="Bars"
+                        scope.launch {
+                            drawerState.apply {
+                                close() // Close drawer or side menu
+                            }
+                        }
+                    }
+                )*/
             }
+
         }) {
-        Column {
-            when (component) {
-                "Content1" ->
+        Column{
+            when(component){
+                "Content1" -> {
                     Content1()
-
-                "Content2" ->
+                }
+                "Content2" ->{
                     Content2()
-
-                "Button" ->
+                }
+                "Buttons" ->{
                     Buttons()
-
-                "FloatingButtons" ->
+                }
+                "Floating" ->{
                     FloatingButtons()
-
-                "Chips" ->
+                }
+                "Chips" ->{
                     Chips()
-
-                "InputExample" ->
-                    InputChipExample("Dimiss", {})
-
-                "Progress" ->
+                }
+                "Progress"->{
                     Progress()
-
-                "Sliders" ->
+                }
+                "Sliders"->{
                     Sliders()
-
-                "Switches" ->
+                }
+                "Switches"->{
                     Switches()
-
-                "Badges" ->
+                }
+                "Badges"->{
                     Badges()
-
-                "TimePickers" ->
+                }
+                "TimePickers" ->{
                     TimePickers()
-
-                "DatePickers" ->
+                }
+                "DatePickers"->{
                     DatePickers()
-
-                "SnackBars" ->
-                    SnackBars()
-
-                "AlertDialogs" ->
+                }
+                "AlertDialogs"->{
                     AlertDialogs()
-
-                "Bars" ->
+                }
+                "SnackBars"->{
+                    SnackBars()
+                }
+                "Bars"->{
                     Bars()
-            }
-            InputChipExample("Dismiss", {})*/
+                }
+                "Adaptative"->{
+                    Adaptative()
+                }
 
-            //}
+
+            }
+            /*Text(text = component)
+            Text(text="This is the Components")
+            Button(onClick = { navController.navigate("menu")}) {
+            }
+            Content1()
+            Content2()*/
+        }
 
     }
+
+
 }
+
 
 
 
@@ -885,7 +902,7 @@ private fun Bars() {
         }
 
         var post = arrayOf(
-            PostModel(1, "Title 1", "Text1", painterResource(R.drawable.profile1)),
+            PostModel(1, "Title 1", "Text1", painterResource(R.drawable.j0b8jkwfohdd1)),
             PostModel(2, "Title 2", "Text2", painterResource(R.drawable.blackpink)),
             PostModel(3, "Title 3", "Text3", painterResource(R.drawable.blackpink)),
             PostModel(4, "Title 4", "Text4", painterResource(R.drawable.blackpink))
@@ -987,13 +1004,22 @@ private fun Bars() {
 }
 
 @Composable
-fun Posts(arrayPosts : Array<PostModel>) {
-    LazyRow(
+fun Posts(arrayPosts : Array<PostModel>, adaptive:String) {
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
     ) {
         items(arrayPosts) { post ->
-            PostCard(post.id, post.title, post.text, post.image)
+            when(adaptive){
+                "PhonePortrait" ->{
+                    PostCardCompact(post.id, post.title, post.text, post.image)
+                }
+                "PhoneLandscape" ->{
+                    PostCard(post.id, post.title, post.text, post.image)
+                }
+
+            }
+
         }
     }
 }
@@ -1009,5 +1035,39 @@ fun PostGrid(arrayPosts: Array<PostModel>){
             PostCard(post.id, post.title, post.text, post.image)
         }
     }
+}
+
+@Preview(showBackground = true, device = "spec:id=reference_tablet,shape=Normal,width=1280,height=800,unit=dp,dpi=240")
+@Composable
+fun Adaptative(){
+    var WindowSize = currentWindowAdaptiveInfo()
+    var height = currentWindowAdaptiveInfo().windowSizeClass.windowHeightSizeClass
+    var width = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass
+
+    // Compact height < 600dp phones in portrait mode
+    // Medium width >= 600dp < 840dp Tablets in portrait mode
+    // Expanded width > 840dp Tblet in landscape mode
+
+    //Compact height < 480dp Phone in landscape mode
+    //Medium height >= 480dp < 900dp Tablet landscape or Phone in portrait
+    //Expanded > 900dp Tablet in portrait
+
+    var post = arrayOf(
+        PostModel(1, "Title 1", "Text1", painterResource(R.drawable.j0b8jkwfohdd1)),
+        PostModel(2, "Title 2", "Text2", painterResource(R.drawable.blackpink)),
+        PostModel(3, "Title 3", "Text3", painterResource(R.drawable.blackpink)),
+        PostModel(4, "Title 4", "Text4", painterResource(R.drawable.blackpink))
+    )
+
+    if (width == WindowWidthSizeClass.COMPACT){
+        Posts(post,"PhonePortrait")
+    }else if (height == WindowHeightSizeClass.COMPACT){
+        Posts(post,"PhoneLandscape")
+
+    }else{
+        Posts(post, "Otros dispositivos")
+    }
+
+    //Text(text = WindowSize.toString())
 }
 
