@@ -3,6 +3,7 @@ package com.example.ejemploenclase1
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -73,6 +74,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.ui.draw.clip
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
+import com.example.ejemploenclase1.ui.screens.Components
 
 // Define los colores para el borde degradado
 val GradientColors = Brush.linearGradient(
@@ -98,9 +100,12 @@ val sampleStories = listOf(
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
+            ComposeMultiScreenApp()
 
-            Box(
+
+           /* Box(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
@@ -177,7 +182,7 @@ class MainActivity : ComponentActivity() {
         // Configurar el color de la barra de estado y la barra de navegación
         WindowCompat.getInsetsController(window, window.decorView).let { controller ->
             controller.isAppearanceLightStatusBars = true
-            controller.isAppearanceLightNavigationBars = true
+            controller.isAppearanceLightNavigationBars = true*/
         }
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.white) // Cambia R.color.white por el color deseado
@@ -742,7 +747,7 @@ fun BoxExample2(){
     }
 }*/
 
-/*@Composable
+@Composable
 fun ComposeMultiScreenApp(){
     val navController = rememberNavController()
     Surface(color = Color.White){
@@ -756,9 +761,13 @@ fun SetupNavGraph(navController: NavHostController){
     NavHost(navController = navController, startDestination = "menu"){
         composable("menu"){ MenuScreen(navController)}
         composable("home"){ HomeScreen(navController)}
+        composable("components"){ Components(navController) }
 
     }
-}*/
+}
+
+
+
 
 
 
