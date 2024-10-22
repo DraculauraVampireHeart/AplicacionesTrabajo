@@ -19,5 +19,9 @@ fun MenuScreen(navController: NavController){
         Button(onClick = {navController.navigate("home")}) {
             
         }
+        
+        Button(onClick = {navController.navigate("components")}) {
+            Text(text = "Go to components")
+        }
     }
 }
