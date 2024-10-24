@@ -75,6 +75,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
 import com.example.ejemploenclase1.ui.screens.Components
+import com.example.ejemploenclase1.ui.screens.LoginScreen
 
 // Define los colores para el borde degradado
 val GradientColors = Brush.linearGradient(
@@ -762,6 +763,7 @@ fun SetupNavGraph(navController: NavHostController){
         composable("menu"){ MenuScreen(navController)}
         composable("home"){ HomeScreen(navController)}
         composable("components"){ Components(navController) }
+        composable("login"){ LoginScreen(navController) }
 
     }
 }
