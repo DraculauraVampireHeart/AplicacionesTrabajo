@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.adaptive.android)
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.appcompat)
     //implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -78,5 +80,15 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.5.3")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //Notificaciones
+    implementation("androidx.work:work-runtime-ktx:2.9.1")
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.activity:activity-ktx:1.9.3")
+
+    //Biometricos
+    implementation ("androidx.biometric:biometric:1.2.0-alpha03")
+    implementation("androidx.asynclayoutinflater:asynclayoutinflater-appcompat:1.1.0-alpha01")
+
 
 }
