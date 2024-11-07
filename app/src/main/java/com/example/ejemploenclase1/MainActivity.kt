@@ -16,6 +16,7 @@ import com.example.ejemploenclase1.ui.screens.HomeScreen
 import com.example.ejemploenclase1.ui.screens.MenuScreen
 import androidx.compose.foundation.layout.*
 import androidx.navigation.activity
+import com.example.ejemploenclase1.network.NetworkMonitorScreen
 import com.example.ejemploenclase1.ui.screens.BiometricsScreen
 import com.example.ejemploenclase1.ui.screens.Components
 import com.example.ejemploenclase1.ui.screens.LoginScreen
@@ -51,6 +52,7 @@ fun SetupNavGraph(navController: NavHostController, activity: AppCompatActivity)
         composable("login"){ LoginScreen(navController) }
         composable("segundo_plano") { NotificationButton(navController) }
         composable("biometrics"){ BiometricsScreen(navController = navController, activity = activity)}
+        composable("Network") { NetworkMonitorScreen(navController = navController, activity = activity) }
 
     }
 }

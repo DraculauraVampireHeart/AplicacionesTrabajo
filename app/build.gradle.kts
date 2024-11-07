@@ -90,5 +90,12 @@ dependencies {
     implementation ("androidx.biometric:biometric:1.2.0-alpha03")
     implementation("androidx.asynclayoutinflater:asynclayoutinflater-appcompat:1.1.0-alpha01")
 
+    //WIFI
+    implementation ("androidx.compose.ui:ui-tooling:1.7.5")
+    implementation ("androidx.activity:activity-compose:1.9.3")
+    implementation ("io.coil-kt:coil-compose:2.4.0")
+    implementation ("androidx.compose.material:material:1.7.5")
+
+
 
 }
