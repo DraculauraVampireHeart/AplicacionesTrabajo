@@ -45,5 +45,9 @@ fun MenuScreen(navController: NavController) {
         Button(onClick = { navController.navigate("Home") }) {
             Text(text = "location")
         }
+
+        Button(onClick = { navController.navigate("calendarcontacts") }) {
+            Text(text = "Calendar and Contacts")
+        }
     }
 }
