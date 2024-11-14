@@ -12,34 +12,38 @@ import androidx.navigation.NavController
 
 
 @Composable
-fun MenuScreen(navController: NavController){
-    Column (
+fun MenuScreen(navController: NavController) {
+    Column(
         modifier = Modifier
             .padding(top = 24.dp, start = 7.dp)
-    ){
+    ) {
 
-        Button(onClick = {navController.navigate("home")}) {
+        Button(onClick = { navController.navigate("home") }) {
             Text(text = "This is a menu screen")
         }
-        
-        Button(onClick = {navController.navigate("components")}) {
+
+        Button(onClick = { navController.navigate("components") }) {
             Text(text = "Go to components")
         }
 
-        Button(onClick = {navController.navigate("login")}) {
+        Button(onClick = { navController.navigate("login") }) {
             Text(text = "Login")
         }
 
-        Button(onClick = {navController.navigate("segundo_plano")}) {
+        Button(onClick = { navController.navigate("segundo_plano") }) {
             Text(text = "Segundo Plano")
         }
 
-        Button(onClick = {navController.navigate("biometrics")}) {
+        Button(onClick = { navController.navigate("biometrics") }) {
             Text(text = "Biometrics")
         }
 
-        Button(onClick = {navController.navigate("Network")}) {
+        Button(onClick = { navController.navigate("Network") }) {
             Text(text = "Network")
+        }
+
+        Button(onClick = { navController.navigate("Home") }) {
+            Text(text = "location")
         }
     }
 }

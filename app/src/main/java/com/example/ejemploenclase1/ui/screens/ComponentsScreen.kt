@@ -972,7 +972,7 @@ fun Posts(arrayPosts : Array<PostModel>, adaptive:String) {
     ) {
         items(arrayPosts) { post ->
             when(adaptive){
-                "PhonePortrait" ->{
+                "PhonePort  rait" ->{
                     PostCardCompact(post.id, post.title, post.text, post.image)
                 }
                 "PhoneLandscape" ->{
