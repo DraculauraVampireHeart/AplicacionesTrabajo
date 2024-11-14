@@ -24,10 +24,12 @@ import com.example.ejemploenclase1.ui.location.MapsSearchView
 import com.example.ejemploenclase1.ui.location.SearchViewModel
 import com.example.ejemploenclase1.ui.screens.AgendaScreen
 import com.example.ejemploenclase1.ui.screens.BiometricsScreen
+import com.example.ejemploenclase1.ui.screens.CameraScreen
 import com.example.ejemploenclase1.ui.screens.Components
 import com.example.ejemploenclase1.ui.screens.ContactsCalendar
 import com.example.ejemploenclase1.ui.screens.LoginScreen
 import com.example.ejemploenclase1.ui.screens.NotificationButton
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -55,6 +57,7 @@ fun SetupNavGraph(navController: NavHostController, activity: AppCompatActivity,
         composable("menu") { MenuScreen(navController) }
         composable("home") { HomeScreen(navController) }
         composable("calendarcontacts") { ContactsCalendar(navController) }
+        composable("camera") { CameraScreen(navController = navController) }
         composable("components") { Components(navController) }
         composable("login") { LoginScreen(navController) }
         composable("segundo_plano") { NotificationButton(navController) }
