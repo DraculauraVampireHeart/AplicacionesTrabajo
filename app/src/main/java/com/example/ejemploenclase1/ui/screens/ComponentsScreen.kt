@@ -38,7 +38,10 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
@@ -123,7 +126,7 @@ fun Components(navController: NavController) {
         MenuModel(1,"Content 1","Content1",Icons.Filled.Home),
         MenuModel(2,"Content 2","Content2",Icons.Filled.FavoriteBorder),
         MenuModel(3,"Buttons","Buttons",Icons.Filled.AccountBox),
-        MenuModel(4,"Floating Buttons","FloatingButtons",Icons.Filled.CheckCircle),
+        MenuModel(4,"Floating Buttons","Floating",Icons.Filled.CheckCircle),
         MenuModel(5,"Chips","Chips",Icons.Filled.Check),
         MenuModel(6,"Progress","Progress",Icons.Filled.Refresh),
         MenuModel(7,"Sliders","Sliders",Icons.Filled.KeyboardArrowDown),
@@ -868,136 +871,94 @@ fun AlertDialogs() {
     }
 }
 
+@Preview(showBackground = true)
 @Composable
 private fun Bars() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.DarkGray)
-    ) {
-        Row(
-            modifier = Modifier
+
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.DarkGray)
+    ){
+        Row( //Custom Header
+            modifier= Modifier
                 .align(Alignment.TopCenter)
                 .fillMaxWidth()
                 .background(Color.Black)
                 .padding(10.dp, 50.dp, 10.dp, 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Icon(
-                Icons.Filled.Menu,
-                contentDescription = "",
-                tint = Color.White
-            )
+        ){
+            Icon(Icons.Filled.Menu, "", tint = Color.White)
             Text(
-                text = "App Title",
-                color = Color.White,
+                "App Title",
+                color=Color.White,
                 fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
+                fontSize=20.sp
             )
-            Icon(
-                Icons.Filled.Settings,
-                contentDescription = "",
-                tint = Color.White
-            )
+            Icon(Icons.Filled.Settings, "", tint = Color.White)
         }
 
         var post = arrayOf(
-            PostModel(1, "Title 1", "Text1", painterResource(R.drawable.j0b8jkwfohdd1)),
-            PostModel(2, "Title 2", "Text2", painterResource(R.drawable.blackpink)),
-            PostModel(3, "Title 3", "Text3", painterResource(R.drawable.blackpink)),
-            PostModel(4, "Title 4", "Text4", painterResource(R.drawable.blackpink))
+            PostModel(1,"Title1","Text1",painterResource(R.drawable.blackpink)),
+            PostModel(2,"Title2","Text2",painterResource(R.drawable.j0b8jkwfohdd1)),
+            PostModel(3,"Title3","Text3",painterResource(R.drawable.j0b8jkwfohdd1)),
+            PostModel(4,"Title4","Text4",painterResource(R.drawable.zb1pfp)),
+            PostModel(5,"Title5","Text5",painterResource(R.drawable.lisapfp))
         )
 
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(10.dp, 90.dp, 10.dp, 50.dp)
-                .fillMaxSize()
-        ){
-            //Posts(post)
-            //PostCard(id = 1, title = "Title", text = "Text", image(R.drawable.blackpink)
-            PostGrid(post)
-        }
+        PostGrid(arrayPosts = post)
 
 
-        Row(
-            modifier = Modifier
-                //alinier al top center falta **
+        Row( //Bottom Nav Bar
+            modifier= Modifier
+                .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .height(65.dp)
                 .background(Color.Black)
+                .height(60.dp)
                 .padding(2.dp, 5.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Column {
-                IconButton(
-                    onClick = {}, modifier = Modifier
-                        .size(30.dp)
-                ) {
-                    Icon(
-                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
-                        modifier = Modifier
-                            .fillMaxSize()
+        ){ //Bottom Bar
+            /**
+             * Icons on the bottom nav bar
+             */
+            Column{
+                IconButton(onClick={}, modifier = Modifier.size(30.dp)){
+                    Icon(Icons.Outlined.Favorite,
+                        contentDescription="",
+                        tint=Color.White,
+                        modifier = Modifier.fillMaxSize()
                     )
-
                 }
-                Text(text = "Home", color = Color.White)
+                Text("Search", color=Color.White)
             }
-            Column {
-                IconButton(
-                    onClick = {}, modifier = Modifier
-                        .size(30.dp)
-                ) {
-                    Icon(
-                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
-                        modifier = Modifier
-                            .fillMaxSize()
+            Column{
+                IconButton(onClick={}, modifier = Modifier.size(30.dp)){
+                    Icon(Icons.Outlined.Menu,
+                        contentDescription="",
+                        tint=Color.White,
+                        modifier = Modifier.fillMaxSize()
                     )
-
                 }
-                Text(text = "Alerts", color = Color.White)
+                Text("Men", color=Color.White)
             }
-            Column {
-                IconButton(
-                    onClick = {}, modifier = Modifier
-                        .size(30.dp)
-                ) {
-                    Icon(
-                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
-                        modifier = Modifier
-                            .fillMaxSize()
+            Column{
+                IconButton(onClick={}, modifier = Modifier.size(30.dp)){
+                    Icon(Icons.Outlined.Home,
+                        contentDescription="",
+                        tint=Color.White,
+                        modifier = Modifier.fillMaxSize()
                     )
-
                 }
-                Text(text = "XD", color = Color.White)
+                Text("Home", color=Color.White)
             }
-            Column {
-                IconButton(
-                    onClick = {}, modifier = Modifier
-                        .size(30.dp)
-                ) {
-                    Icon(
-                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
-                        modifier = Modifier
-                            .fillMaxSize()
+            Column{
+                IconButton(onClick={}, modifier = Modifier.size(30.dp)){
+                    Icon(Icons.Outlined.Settings,
+                        contentDescription="",
+                        tint=Color.White,
+                        modifier = Modifier.fillMaxSize()
                     )
-
                 }
-                Text(text = "other", color = Color.White)
-            }
-            Column {
-                IconButton(
-                    onClick = {}, modifier = Modifier
-                        .size(30.dp)
-                ) {
-                    Icon(
-                        Icons.Outlined.Home, contentDescription = "", tint = Color.White,
-                        modifier = Modifier
-                            .fillMaxSize()
-                    )
-
-                }
-                Text(text = "Other", color = Color.White)
+                Text("Settings", color=Color.White)
             }
         }
     }
@@ -1011,7 +972,7 @@ fun Posts(arrayPosts : Array<PostModel>, adaptive:String) {
     ) {
         items(arrayPosts) { post ->
             when(adaptive){
-                "PhonePortrait" ->{
+                "PhonePort  rait" ->{
                     PostCardCompact(post.id, post.title, post.text, post.image)
                 }
                 "PhoneLandscape" ->{
