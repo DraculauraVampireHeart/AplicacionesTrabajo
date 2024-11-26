@@ -64,6 +64,7 @@ dependencies {
     implementation(libs.androidx.adaptive.android)
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.room.ktx)
     //implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -101,6 +102,13 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:19.0.0")
     implementation("com.google.android.libraries.places:places:4.0.0")
 
+//test app
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
 
 }
