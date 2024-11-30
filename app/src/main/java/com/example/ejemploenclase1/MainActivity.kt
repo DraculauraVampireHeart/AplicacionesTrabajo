@@ -1,6 +1,7 @@
 package com.example.ejemploenclase1
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.*
 import androidx.navigation.NavType
 import androidx.navigation.activity
 import androidx.navigation.navArgument
+import com.example.ejemploenclase1.data.model.database.AppDatabase
 import com.example.ejemploenclase1.network.NetworkMonitorScreen
 import com.example.ejemploenclase1.ui.components.ManageServiceScreen
 import com.example.ejemploenclase1.ui.location.HomeView
@@ -30,12 +32,20 @@ import com.example.ejemploenclase1.ui.screens.Components
 import com.example.ejemploenclase1.ui.screens.ContactsCalendar
 import com.example.ejemploenclase1.ui.screens.LoginScreen
 import com.example.ejemploenclase1.ui.screens.NotificationButton
+import com.example.ejemploenclase1.data.model.database.DatabaseProvider
 
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var database: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        try{
+            database = DatabaseProvider.getDatabase(this)
+            Log.d("DB", "Database loaded successfully")
+        }catch (exception:Exception){
+            Log.d("DB", "error: $exception")
+        }
         enableEdgeToEdge()
         val searchVM = SearchViewModel() // Instancia de SearchViewModel
         setContent {

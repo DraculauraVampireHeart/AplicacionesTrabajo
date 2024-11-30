@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.example.ejemploenclase1"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.ejemploenclase1"
@@ -109,6 +110,15 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //base de datos
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.media3.database)
+
+
+    //SQLite
+    val room_version = "2.6.1"
+    ksp("androidx.room:room-compiler:$room_version")
 
 
 }
