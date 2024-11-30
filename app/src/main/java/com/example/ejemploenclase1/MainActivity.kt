@@ -19,6 +19,7 @@ import androidx.navigation.NavType
 import androidx.navigation.activity
 import androidx.navigation.navArgument
 import com.example.ejemploenclase1.network.NetworkMonitorScreen
+import com.example.ejemploenclase1.ui.components.ManageServiceScreen
 import com.example.ejemploenclase1.ui.location.HomeView
 import com.example.ejemploenclase1.ui.location.MapsSearchView
 import com.example.ejemploenclase1.ui.location.SearchViewModel
@@ -81,8 +82,14 @@ fun SetupNavGraph(navController: NavHostController, activity: AppCompatActivity,
         composable("Home") {
             HomeView(navController, searchVM)
         }
+
+        composable("manage-service/{serviceId}"){
+                backStackEntry -> val serviceId = backStackEntry.arguments?.getString("serviceId")
+            ManageServiceScreen(navController, serviceId = serviceId)
+        }
     }
 }
+
 
 
 
