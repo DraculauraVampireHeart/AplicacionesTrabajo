@@ -64,7 +64,7 @@ fun ComposeMultiScreenApp(activity: AppCompatActivity, searchVM: SearchViewModel
 
 @Composable
 fun SetupNavGraph(navController: NavHostController, activity: AppCompatActivity, searchVM: SearchViewModel) {
-    NavHost(navController = navController, startDestination = "menu") {
+    NavHost(navController = navController, startDestination = "login") {
         composable("menu") { MenuScreen(navController) }
         composable("home") { HomeScreen(navController) }
         composable("calendarcontacts") { ContactsCalendar(navController) }

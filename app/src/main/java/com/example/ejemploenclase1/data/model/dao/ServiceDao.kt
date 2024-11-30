@@ -18,4 +18,10 @@ interface ServiceDao {
     fun insertAll(services: List<ServiceEntity>)
     @Delete
     fun delete(service: ServiceEntity)
+
+    @Query("SELECT MAX(id) FROM ServiceEntity")
+    fun lastId(): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(service: ServiceEntity)
 }
